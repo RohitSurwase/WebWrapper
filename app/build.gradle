@@ -1,0 +1,142 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.rohitrss.wrapper'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.rohitrss.wrapper"
+        minSdk 16
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        releaseKeys {
+            storeFile file("keys/release.keystore")
+            storePassword "WebWrapper"
+            keyAlias "RohitSurwase"
+            keyPassword "WebWrapper"
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled true
+            shrinkResources true
+            manifestPlaceholders = [
+                    appIcon     : "@mipmap/ic_launcher_default",
+                    appIconRound: "@mipmap/ic_launcher_default_round"
+            ]
+            resValue "string", "app_name", "Web Wrapper"
+            resValue "string", "default_url", "https://www.google.com"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            manifestPlaceholders = [
+                    appIcon     : "@mipmap/ic_launcher_default",
+                    appIconRound: "@mipmap/ic_launcher_default_round"
+            ]
+            resValue "string", "app_name", "Web Wrapper"
+            resValue "string", "default_url", "https://www.google.com"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseKeys
+        }
+
+        twitter.initWith(buildTypes.release)
+        twitter {
+            manifestPlaceholders = [
+                    appIcon     : "@mipmap/ic_launcher_twitter",
+                    appIconRound: "@mipmap/ic_launcher_twitter_round"
+            ]
+            resValue "string", "app_name", "Twitter Lite"
+            resValue "string", "default_url", "https://twitter.com"
+            applicationIdSuffix ".twitter"
+        }
+
+        linkedin.initWith(buildTypes.release)
+        linkedin {
+            manifestPlaceholders = [
+                    appIcon     : "@mipmap/ic_launcher_linkedin",
+                    appIconRound: "@mipmap/ic_launcher_linkedin_round"
+            ]
+            resValue "string", "app_name", "LinkedIn Lite"
+            resValue "string", "default_url", "https://www.linkedin.com/"
+            applicationIdSuffix ".linkedin"
+        }
+
+        chatgpt.initWith(buildTypes.release)
+        chatgpt {
+            manifestPlaceholders = [
+                    appIcon     : "@mipmap/ic_launcher_chatgpt",
+                    appIconRound: "@mipmap/ic_launcher_chatgpt_round"
+            ]
+            resValue "string", "app_name", "ChatGPT Lite"
+            resValue "string", "default_url", "https://chat.openai.com/"
+            applicationIdSuffix ".chatgpt"
+        }
+
+        bard.initWith(buildTypes.release)
+        bard {
+            manifestPlaceholders = [
+                    appIcon     : "@mipmap/ic_launcher_bard",
+                    appIconRound: "@mipmap/ic_launcher_bard_round"
+            ]
+            resValue "string", "app_name", "Bard Lite"
+            resValue "string", "default_url", "https://bard.google.com/"
+            applicationIdSuffix ".bard"
+        }
+
+        airtel.initWith(buildTypes.release)
+        airtel {
+            manifestPlaceholders = [
+                    appIcon     : "@mipmap/ic_launcher_airtel",
+                    appIconRound: "@mipmap/ic_launcher_airtel_round"
+            ]
+            resValue "string", "app_name", "Airtel Lite"
+            resValue "string", "default_url", "https://www.airtel.in/manage-account"
+            applicationIdSuffix ".airtel"
+        }
+
+        jio.initWith(buildTypes.release)
+        jio {
+            manifestPlaceholders = [
+                    appIcon     : "@mipmap/ic_launcher_jio",
+                    appIconRound: "@mipmap/ic_launcher_jio_round"
+            ]
+            resValue "string", "app_name", "Jio Lite"
+            resValue "string", "default_url", "https://www.jio.com/dashboard"
+            applicationIdSuffix ".jio"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            // This is to modify auto generated app/apk name
+            def appName = output.outputFile.name
+            // Original appName example: app-twitter.apk
+            appName = appName.replace(".apk", "_v${variant.versionCode}.apk")
+            // Generated appName example: app-twitter_v1.apk
+            output.outputFileName = appName
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+}
