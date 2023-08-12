@@ -18,8 +18,9 @@
         android:id="@+id/progress"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:layout_marginTop="60dp"
+        android:elevation="8dp"
         android:indeterminate="true" />
 
     <LinearLayout
@@ -106,7 +107,7 @@
         android:padding="4dp"
         android:visibility="gone"
         app:elevation="4dp"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <WebView
             android:id="@+id/popupWebView"

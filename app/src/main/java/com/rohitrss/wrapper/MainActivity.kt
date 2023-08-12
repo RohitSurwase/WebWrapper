@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val baseWebViewClient = object : WebViewClient() {
+    private val myWebViewClient = object : WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
             progressBar.isVisible = true
@@ -78,15 +78,6 @@ class MainActivity : AppCompatActivity() {
             progressBar.isVisible = false
         }
 
-        override fun shouldOverrideUrlLoading(
-            view: WebView?,
-            request: WebResourceRequest?
-        ): Boolean {
-            return false
-        }
-    }
-
-    private val popupWebViewClient = object : WebViewClient() {
         override fun shouldOverrideUrlLoading(
             view: WebView?,
             request: WebResourceRequest?
@@ -176,7 +167,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             mainWebView.apply {
                 settings.apply {
-                    webViewClient = baseWebViewClient
+                    webViewClient = myWebViewClient
                     webChromeClient = baseWebChromeClient
                     cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
                     domStorageEnabled = true
@@ -214,7 +205,7 @@ class MainActivity : AppCompatActivity() {
             // Configure popupWebView
             popupWebView.apply {
                 settings.apply {
-                    webViewClient = popupWebViewClient
+                    webViewClient = myWebViewClient
                     cacheMode = WebSettings.LOAD_NO_CACHE
                     domStorageEnabled = true
                     javaScriptEnabled = true
